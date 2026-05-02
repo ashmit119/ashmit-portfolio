@@ -21,16 +21,16 @@
       --purple: #7c3aed;
       --purple-dim: rgba(124, 58, 237, 0.2);
       --pink: #ec4899;
-      --glass: rgba(255, 255, 255, 0.04);
+      --glass: rgba(255, 255, 255, 0.03);
       --glass-b: rgba(255, 255, 255, 0.08);
-      --border: rgba(0, 245, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.08);
       --border-h: rgba(0, 245, 255, 0.4);
-      --text: #e2e8f0;
+      --text: #f1f5f9;
       --text-dim: #94a3b8;
-      --font-head: 'Orbitron', monospace;
+      --font-head: 'Orbitron', sans-serif;
       --font-body: 'Exo 2', sans-serif;
-      --radius: 16px;
-      --radius-sm: 10px;
+      --radius: 20px;
+      --radius-sm: 12px;
     }
 
     /* ─── Reset & Base ───────────────────────────────────── */
@@ -124,9 +124,9 @@
 
     /* ─── Layout Wrapper ─────────────────────────────────── */
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 24px;
       position: relative;
       z-index: 1;
     }
@@ -156,10 +156,11 @@
 
     .nav-logo {
       font-family: var(--font-head);
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-size: 1.3rem;
+      font-weight: 800;
       color: var(--cyan);
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
     }
 
     .nav-logo span {
@@ -215,6 +216,22 @@
       background: var(--text);
       border-radius: 2px;
       transition: 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .hamburger {
+      z-index: 1000;
     }
 
     /* ─── Hero ───────────────────────────────────────────── */
@@ -289,16 +306,17 @@
     }
 
     .hero-role {
-      font-size: 1.1rem;
-      color: var(--text-dim);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--cyan);
       margin-bottom: 24px;
-      font-weight: 400;
+      font-weight: 500;
+      letter-spacing: 1px;
     }
 
     .hero-desc {
-      font-size: 0.98rem;
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
       color: var(--text-dim);
-      max-width: 440px;
+      max-width: 500px;
       line-height: 1.8;
       margin-bottom: 40px;
     }
@@ -331,8 +349,8 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 50px rgba(0, 245, 255, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(0, 245, 255, 0.5);
     }
 
     .btn-outline {
@@ -359,8 +377,8 @@
 
     .avatar-ring {
       position: relative;
-      width: 340px;
-      height: 340px;
+      width: clamp(260px, 30vw, 380px);
+      height: clamp(260px, 30vw, 380px);
     }
 
     .ring {
@@ -530,11 +548,25 @@
     }
 
     .divider {
-      width: 60px;
-      height: 3px;
+      width: 80px;
+      height: 4px;
       background: linear-gradient(90deg, var(--cyan), var(--purple));
-      border-radius: 2px;
-      margin-bottom: 52px;
+      border-radius: 4px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .divider::after {
+      content: '';
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--cyan);
     }
 
     /* ─── Glass Card ─────────────────────────────────────── */
@@ -543,13 +575,24 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       backdrop-filter: blur(20px);
-      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+      pointer-events: none;
     }
 
     .glass-card:hover {
       border-color: var(--border-h);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0, 245, 255, 0.07);
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 245, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
     }
 
     /* ─── About ──────────────────────────────────────────── */
@@ -688,9 +731,11 @@
     }
 
     .project-card {
-      padding: 32px 28px;
+      padding: clamp(24px, 5vw, 40px);
       position: relative;
-      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .project-card::before {
@@ -742,13 +787,20 @@
     }
 
     .tag {
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 50px;
-      background: var(--purple-dim);
-      border: 1px solid rgba(124, 58, 237, 0.3);
-      font-size: 0.72rem;
+      background: rgba(124, 58, 237, 0.1);
+      border: 1px solid rgba(124, 58, 237, 0.2);
+      font-size: 0.75rem;
+      font-weight: 500;
       color: #a78bfa;
       letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+
+    .tag:hover {
+      background: rgba(124, 58, 237, 0.2);
+      border-color: rgba(124, 58, 237, 0.4);
     }
 
     .project-links {
@@ -759,18 +811,21 @@
     .proj-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
       color: var(--cyan);
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      padding: 6px 14px;
+      border: 1px solid rgba(0, 245, 255, 0.15);
+      border-radius: 12px;
+      padding: 10px 20px;
       transition: all 0.3s;
+      background: rgba(0, 245, 255, 0.03);
     }
 
     .proj-link:hover {
       background: var(--cyan-dim);
-      border-color: var(--border-h);
+      border-color: var(--cyan);
+      transform: translateY(-2px);
     }
 
     /* ─── Contact Section (inline, not just modal) ───────── */
@@ -1100,18 +1155,28 @@
       .nav-links {
         display: none;
         flex-direction: column;
-        position: absolute;
-        top: 70px;
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
-        background: rgba(3, 4, 15, 0.97);
-        border-bottom: 1px solid var(--border);
-        padding: 20px 32px;
-        gap: 20px;
+        bottom: 0;
+        height: 100vh;
+        background: rgba(3, 4, 15, 0.98);
+        backdrop-filter: blur(30px);
+        padding: 100px 32px;
+        gap: 30px;
+        align-items: center;
+        justify-content: center;
+        z-index: 99;
       }
 
       .nav-links.open {
         display: flex;
+      }
+
+      .nav-links a {
+        font-size: 1.5rem;
+        font-weight: 700;
       }
 
       .hamburger {
@@ -1668,10 +1733,12 @@
     // ── Mobile nav ───────────────────────────────────────────
     function toggleNav() {
       document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
     }
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         document.getElementById('navLinks').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('open');
       });
     });
 
